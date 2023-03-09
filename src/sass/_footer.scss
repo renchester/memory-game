@@ -1,0 +1,35 @@
+@use 'base';
+@import 'mixins';
+
+.footer {
+  @include center-self(horizontal);
+
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  margin-bottom: 10px;
+  padding: 20px auto;
+  gap: 10px;
+  // background-color: var(--color-background);
+  font-family: var(--font-herculanum);
+  z-index: 1;
+
+  & > *:visited,
+  & > *:link {
+    text-decoration: none;
+  }
+
+  &__link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: var(--text-md);
+  }
+
+  @media screen and (max-height: 900px) {
+    & {
+      position: relative;
+    }
+  }
+}
