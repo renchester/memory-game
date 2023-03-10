@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Card from './components/Card';
+import Scoreboard from './components/Scoreboard';
 import Footer from './components/Footer';
 
 import characterData from './characters';
 
 function App() {
-  // Add propoert to character data
+  // Add property to character data
   const cardCharacters = characterData.map((char) => ({
     ...char,
     isClicked: false,
@@ -15,9 +16,15 @@ function App() {
   const [gameState, setGameState] = useState({
     characters: cardCharacters,
     currentScore: 0,
-    highScore: 0,
     isGameOver: false,
   });
+  const [highScore, setHighScore] = useState(
+    JSON.parse(localStorage.getItem('highScoreMemory')) || 0,
+  );
+
+  useEffect(() => {
+    localStorage.setItem('highScoreMemory', JSON.stringify(highScore));
+  }, [highScore]);
 
   // Fisher-Yates shuffle algorithm
   const shuffleCharacters = (array) => {
@@ -33,11 +40,19 @@ function App() {
     return newArray;
   };
 
+  const endGame = () => {
+    if (gameState.currentScore > highScore) {
+      setHighScore(gameState.currentScore);
+    }
+
+    setGameState({ ...gameState, isGameOver: true, currentScore: 0 });
+  };
+
   const clickCard = (e, id) => {
     const chosenCharacter = gameState.characters.find((char) => char.id === id);
 
     if (chosenCharacter.isClicked) {
-      setGameState({ ...gameState, isGameOver: true });
+      endGame();
       return;
     }
 
@@ -45,11 +60,12 @@ function App() {
       char.id === id ? { ...char, isClicked: true } : char,
     );
 
+    // Shuffle characters and increment score
     const shuffled = shuffleCharacters(arrayWithClickedChar);
-
     setGameState((prevState) => ({
       ...prevState,
       characters: shuffled,
+      currentScore: prevState.currentScore + 1,
     }));
   };
 
@@ -61,6 +77,7 @@ function App() {
 
   return (
     <>
+      <Scoreboard currentScore={gameState.currentScore} highScore={highScore} />
       {!gameState.isGameOver && (
         <div className="cards__container">
           {gameState.characters.map((char) => (
