@@ -6,18 +6,23 @@ import Footer from './components/Footer';
 
 import characterData from './characters';
 
+import { shuffleCharacters } from './helpers';
+
 function App() {
   // Add property to character data
-  const cardCharacters = characterData.map((char) => ({
+  const cardCharacters = shuffleCharacters(characterData).map((char) => ({
     ...char,
     isClicked: false,
   }));
 
-  const [gameState, setGameState] = useState({
+  const initialGameState = {
     characters: cardCharacters,
     currentScore: 0,
+    isGameStart: false,
     isGameOver: false,
-  });
+  };
+
+  const [gameState, setGameState] = useState(initialGameState);
   const [highScore, setHighScore] = useState(
     JSON.parse(localStorage.getItem('highScoreMemory')) || 0,
   );
@@ -26,18 +31,8 @@ function App() {
     localStorage.setItem('highScoreMemory', JSON.stringify(highScore));
   }, [highScore]);
 
-  // Fisher-Yates shuffle algorithm
-  const shuffleCharacters = (array) => {
-    const newArray = [...array];
-
-    for (let i = newArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      const temp = newArray[i];
-      newArray[i] = newArray[j];
-      newArray[j] = temp;
-    }
-
-    return newArray;
+  const resetGame = () => {
+    setGameState(initialGameState);
   };
 
   const endGame = () => {
@@ -78,7 +73,13 @@ function App() {
   return (
     <>
       <Scoreboard currentScore={gameState.currentScore} highScore={highScore} />
-      {!gameState.isGameOver && (
+      {gameState.isGameOver ? (
+        <div className="modal__reset">
+          <button type="button" className="btn__reset-game" onClick={resetGame}>
+            Reset Game
+          </button>
+        </div>
+      ) : (
         <div className="cards__container">
           {gameState.characters.map((char) => (
             <Card
