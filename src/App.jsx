@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 
-import Card from './components/Card';
-import Scoreboard from './components/Scoreboard';
+import Logo from './components/Logo';
+import StartScreen from './components/screens/StartScreen';
+import GameScreen from './components/screens/GameScreen';
+import EndScreen from './components/screens/EndScreen';
 import Footer from './components/Footer';
 
 import characterData from './characters';
@@ -17,33 +19,47 @@ function App() {
 
   const initialGameState = {
     characters: cardCharacters,
-    currentScore: 0,
     isGameStart: false,
     isGameOver: false,
   };
 
   const [gameState, setGameState] = useState(initialGameState);
+  const [isWin, setWin] = useState(false);
+  const [currentScore, setCurrentScore] = useState(0);
   const [highScore, setHighScore] = useState(
     JSON.parse(localStorage.getItem('highScoreMemory')) || 0,
   );
+  const [isLogoDark, setLogoDark] = useState(true);
 
   useEffect(() => {
     localStorage.setItem('highScoreMemory', JSON.stringify(highScore));
   }, [highScore]);
 
-  const resetGame = () => {
+  const startGame = () => {
+    setGameState({ ...initialGameState, isGameStart: true });
+    setLogoDark(false);
+    setWin(false);
+  };
+
+  const resetToHomeScreen = () => {
     setGameState(initialGameState);
+    setLogoDark(true);
+    setWin(false);
   };
 
   const endGame = () => {
-    if (gameState.currentScore > highScore) {
-      setHighScore(gameState.currentScore);
+    if (currentScore > highScore) {
+      setHighScore(currentScore);
     }
 
-    setGameState({ ...gameState, isGameOver: true, currentScore: 0 });
+    setGameState((prevState) => ({ ...prevState, isGameOver: true }));
+    setCurrentScore(0);
+    setLogoDark(() => false);
   };
 
   const clickCard = (e, id) => {
+    setCurrentScore((prevScore) => prevScore + 1);
+
     const chosenCharacter = gameState.characters.find((char) => char.id === id);
 
     if (chosenCharacter.isClicked) {
@@ -54,45 +70,38 @@ function App() {
     const arrayWithClickedChar = gameState.characters.map((char) =>
       char.id === id ? { ...char, isClicked: true } : char,
     );
-
     // Shuffle characters and increment score
-    const shuffled = shuffleCharacters(arrayWithClickedChar);
     setGameState((prevState) => ({
       ...prevState,
-      characters: shuffled,
-      currentScore: prevState.currentScore + 1,
+      characters: shuffleCharacters(arrayWithClickedChar),
     }));
   };
 
-  const rotateCard = (e) => {
-    setTimeout(() => {
-      e.target.classList.remove('animation');
-    }, 500);
-  };
+  // Checks win condition
+  useEffect(() => {
+    if (gameState.characters.every((char) => char.isClicked)) {
+      setWin(true);
+      endGame();
+    }
+  }, [gameState.characters]);
 
   return (
     <>
-      <Scoreboard currentScore={gameState.currentScore} highScore={highScore} />
-      {gameState.isGameOver ? (
-        <div className="modal__reset">
-          <button type="button" className="btn__reset-game" onClick={resetGame}>
-            Reset Game
-          </button>
-        </div>
-      ) : (
-        <div className="cards__container">
-          {gameState.characters.map((char) => (
-            <Card
-              id={char.id}
-              key={char.id}
-              name={char.name}
-              img={char.img}
-              handleClick={clickCard}
-              handleTransitionEnd={rotateCard}
-            />
-          ))}
-        </div>
+      <Logo isDark={isLogoDark} handleClick={resetToHomeScreen} />
+
+      {!gameState.isGameStart && <StartScreen startGame={startGame} />}
+      {gameState.isGameStart && !gameState.isGameOver && (
+        <GameScreen
+          gameState={gameState}
+          currentScore={currentScore}
+          highScore={highScore}
+          handleClick={clickCard}
+        />
       )}
+      {gameState.isGameOver && (
+        <EndScreen isWin={isWin} restartGame={startGame} />
+      )}
+
       <Footer />
     </>
   );
