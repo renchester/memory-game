@@ -1,5 +1,5 @@
 function Card(props) {
-  const { id, img, name, handleClick, handleTransitionEnd } = props;
+  const { id, img, name, handleClick } = props;
 
   return (
     <button type="button" className="card" onClick={(e) => handleClick(e, id)}>
