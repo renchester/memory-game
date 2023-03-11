@@ -1,0 +1,39 @@
+@import 'mixins';
+
+.screen-end {
+  @extend %cover-background;
+  @extend %parent-with-centered-children;
+  flex-direction: column-reverse;
+  position: relative;
+  color: var(--color-text-opposite);
+
+  &__modal {
+    @extend %parent-with-centered-children;
+    flex-direction: column;
+    gap: 20px;
+
+    width: var(--modal-width);
+
+    background-color: var(--color-modal-background);
+    outline: 4px solid var(--color-modal-background);
+    outline-offset: 5px;
+    padding: 20px;
+    transition: 140ms linear;
+
+    font-size: var(--text-md);
+    font-family: var(--font-herculanum);
+
+    &:hover,
+    &:focus-within {
+      transform: scale(1.04);
+    }
+  }
+
+  &__modal-message {
+    text-align: center;
+  }
+
+  &__gif--winning {
+    height: 400px;
+  }
+}

@@ -71,6 +71,8 @@ body {
   --color-accent-1: #187dcf;
   --color-accent-2: #15884e;
 
+  --color-modal-background: rgba(71, 64, 53, 0.9);
+
   --color-background: #f3f3f4;
   --color-background-opacity75: #f3f3f4be;
   --color-background-opacity50: #f3f3f486;
@@ -147,10 +149,15 @@ body {
   min-height: 100vh;
   min-width: 100vw;
   position: relative;
-  background-color: var(--color-background-opposite);
+  background-color: var(--color-background);
   font-family: var(--font-poppins);
   font-size: var(--font-md);
-  color: var(--color-text-opposite);
+  color: var(--color-text);
+}
+
+#root {
+  min-height: 100vh;
+  min-width: 100vw;
 }
 
 .hidden {

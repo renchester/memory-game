@@ -1,0 +1,37 @@
+@use 'base';
+@use 'mixins';
+
+.logo {
+  @extend %parent-with-centered-children;
+  flex-direction: column;
+  gap: 5px;
+
+  background-color: transparent;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  padding: 20px;
+
+  transition: 100ms all linear;
+  cursor: pointer;
+
+  &__image {
+    width: 200px;
+  }
+
+  &__text {
+    font-family: var(--font-herculanum);
+    font-size: var(--text-md);
+    font-weight: 600;
+  }
+
+  &:focus,
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:focus-within {
+    outline: none;
+  }
+}

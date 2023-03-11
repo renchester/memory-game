@@ -1,0 +1,42 @@
+@use 'base';
+@import 'mixins';
+
+.card {
+  background-color: rgb(95, 57, 7);
+  // width: 100px;
+  // height: 150px;
+  padding: 5px;
+  border-radius: 8px;
+  transition: transform 200ms linear;
+  width: clamp(120px, 8.5vw, 180px);
+
+  cursor: pointer;
+
+  &__image-container {
+    display: flex;
+    aspect-ratio: 12 / 17;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  &__image {
+    object-fit: cover;
+    object-position: top;
+    width: 100%;
+    height: auto;
+  }
+
+  &:hover,
+  &:focus {
+    transform: scale(1.05);
+  }
+}
+
+.animation {
+  //   animation-name: 'scale-up';
+  //   animation-duration: 1s;
+  //   background-color: blue;
+  //   animation: scale-up 1000ms linear;
+
+  transform: rotateY(90deg);
+}

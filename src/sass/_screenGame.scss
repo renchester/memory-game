@@ -1,0 +1,30 @@
+@import 'mixins';
+
+.screen-game {
+  @extend %cover-background;
+  @extend %parent-with-centered-children;
+  position: relative;
+  color: var(--color-text-opposite);
+
+  &__scoreboard-container {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  &__cards-container {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    width: fit-content;
+  }
+
+  &__current-score {
+    @include center-self(horizontal);
+    top: calc(100% + 20px);
+
+    font-family: var(--font-herculanum);
+    font-size: var(--text-lg);
+  }
+}

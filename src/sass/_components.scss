@@ -1,5 +1,26 @@
 .btn {
+  padding: 10px 20px;
+  border-radius: 9px;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
+    rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
   cursor: pointer;
+
+  color: var(--color-text);
+  font-size: var(--text-md);
+
+  &:hover,
+  &:focus {
+    background-color: var(--color-modal-background);
+    color: var(--color-text-opposite);
+    outline: 2px solid var(--color-text-opposite);
+  }
+
+  &__start-game {
+    margin-top: 20px;
+  }
+
+  &__play-again {
+  }
 }
 
 .switch {
