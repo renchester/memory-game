@@ -16,13 +16,14 @@
     position: relative;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
+    grid-template-rows: repeat(3, 1fr);
+    gap: 35px;
     width: fit-content;
   }
 
   &__current-score {
     @include center-self(horizontal);
-    top: calc(100% + 20px);
+    top: calc(100% + 10px);
 
     font-family: var(--font-herculanum);
     font-size: var(--text-lg);
