@@ -43,6 +43,7 @@ function App() {
 
   const resetToHomeScreen = () => {
     setGameState(initialGameState);
+    setCurrentScore(0);
     setLogoDark(true);
     setWin(false);
   };
