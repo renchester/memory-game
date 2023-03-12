@@ -2,15 +2,51 @@
 @import 'mixins';
 
 .card {
-  background-color: rgb(95, 57, 7);
-  // width: 100px;
-  // height: 150px;
-  padding: 5px;
-  border-radius: 8px;
-  transition: transform 200ms linear;
-  width: clamp(120px, 8.5vw, 180px);
+  $c: &;
+
+  position: relative;
+  height: 185px;
+  width: clamp(120px, 8.5vw, 160px);
+  perspective: 400px;
 
   cursor: pointer;
+
+  %card-background {
+    @extend %cover-background;
+    transition: 500ms ease-out;
+    backface-visibility: hidden;
+    background-color: black;
+  }
+
+  &--flipped {
+    #{$c}-side.front {
+      transform: rotateY(0deg);
+    }
+
+    #{$c}-side.back {
+      transform: rotateY(-180deg);
+    }
+  }
+
+  &-side {
+    padding: 3px;
+    border-radius: 5px;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
+
+  &-side.front {
+    @extend %card-background;
+    transform: rotateY(-180deg);
+    background-image: url('../assets//img/card-back-2.jpg');
+  }
+
+  &-side.back {
+    @extend %card-background;
+    transform: rotateY(0deg);
+    background-image: url('../assets//img/card-back.webp');
+  }
 
   &__image-container {
     display: flex;
@@ -26,17 +62,11 @@
     height: auto;
   }
 
-  &:hover,
-  &:focus {
-    transform: scale(1.05);
+  &__image-title {
+    display: inline-block;
+    padding-top: 5px;
+    font-family: var(--font-herculanum);
+    font-size: var(--text-md);
+    font-weight: 700;
   }
-}
-
-.animation {
-  //   animation-name: 'scale-up';
-  //   animation-duration: 1s;
-  //   background-color: blue;
-  //   animation: scale-up 1000ms linear;
-
-  transform: rotateY(90deg);
 }
