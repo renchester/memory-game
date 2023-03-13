@@ -8,7 +8,7 @@ import Footer from './components/Footer';
 
 import characterData from './characters';
 
-import { shuffleCharacters } from './helpers';
+import shuffleCharacters from './helpers';
 
 function App() {
   // Add property to character data

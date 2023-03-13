@@ -26,7 +26,7 @@ function StartScreen(props) {
         >
           <span className="start-message one">
             You have been kidnapped by the Dai Li and they are trying to
-            brainwash you. Only you know the whereabouts of the Avatar's air
+            brainwash you. Only you know the whereabouts of the Avatar`s air
             bison, Appa, and without him the world is in danger.
           </span>
 

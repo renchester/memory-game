@@ -1,5 +1,6 @@
+/* eslint-disable no-plusplus */
 // Fisher-Yates shuffle algorithm
-export const shuffleCharacters = (array) => {
+const shuffleCharacters = (array) => {
   const newArray = [...array];
 
   for (let i = newArray.length - 1; i > 0; i--) {
@@ -11,3 +12,5 @@ export const shuffleCharacters = (array) => {
 
   return newArray;
 };
+
+export default shuffleCharacters;
