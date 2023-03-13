@@ -1,18 +1,6 @@
 @use 'base';
 @use 'mixins';
 
-@keyframes enter-modal {
-  0% {
-    opacity: 0;
-    transform: scale(0.5);
-  }
-
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
 .screen {
   --modal-width: clamp(250px, 60vw, 600px);
 
@@ -42,14 +30,27 @@
 
     font-family: var(--font-herculanum);
     font-size: var(--text-md);
+    line-height: 2rem;
     color: var(--color-text-opposite);
 
-    transition: 150ms ease-in;
-    animation: enter-modal 500ms ease-in;
+    transition: 100ms linear;
 
-    &:focus-within,
-    &:hover {
-      transform: scale(1.03);
-    }
+    // &:focus-within,
+    // &:hover {
+    //   transform: scale(1.03);
+    // }
   }
+
+  .start-message {
+    display: inline-block;
+  }
+
+  .start-message.two {
+    margin-top: 30px;
+  }
+}
+
+.privacy-screen {
+  @extend %privacy-screen;
+  background-color: var(--color-primary);
 }

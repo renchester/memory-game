@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 import Scoreboard from '../Scoreboard';
 import Card from '../Card';
@@ -13,34 +13,36 @@ function GameScreen(props) {
   const [isCardFlipped, setCardFlip] = useState(false);
 
   return (
-    <AnimatePresence>
+    <motion.div
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      key="screen-game"
+      className="screen screen-game"
+      style={{
+        backgroundImage: `url(${bgImage})`,
+      }}
+    >
+      <Scoreboard currentScore={currentScore} highScore={highScore} />
       <motion.div
-        animate={{ scale: 1, opacity: 1 }}
-        initial={{ scale: 0, opacity: 0 }}
-        exit={{ scale: 0, opacity: 0 }}
-        className="screen screen-game"
-        style={{
-          backgroundImage: `url(${bgImage})`,
-        }}
+        className="screen-game__cards-container"
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
       >
-        <Scoreboard currentScore={currentScore} highScore={highScore} />
-        <div className="screen-game__cards-container">
-          {gameState.characters.map((char) => (
-            <Card
-              key={char.id}
-              char={char}
-              handleClick={handleClick}
-              isCardFlipped={isCardFlipped}
-              setCardFlip={setCardFlip}
-            />
-          ))}
+        {gameState.characters.map((char) => (
+          <Card
+            key={char.id}
+            char={char}
+            handleClick={handleClick}
+            isCardFlipped={isCardFlipped}
+            setCardFlip={setCardFlip}
+          />
+        ))}
 
-          <span className="screen-game__current-score">
-            {currentScore} / {gameState.characters.length}
-          </span>
-        </div>
+        <span className="screen-game__current-score">
+          {currentScore} / {gameState.characters.length}
+        </span>
       </motion.div>
-    </AnimatePresence>
+    </motion.div>
   );
 }
 

@@ -91,6 +91,7 @@ function App() {
       <Logo isDark={isLogoDark} handleClick={resetToHomeScreen} />
 
       {!gameState.isGameStart && <StartScreen startGame={startGame} />}
+
       {gameState.isGameStart && !gameState.isGameOver && (
         <GameScreen
           gameState={gameState}
@@ -99,6 +100,7 @@ function App() {
           handleClick={clickCard}
         />
       )}
+
       {gameState.isGameOver && (
         <EndScreen isWin={isWin} restartGame={startGame} />
       )}

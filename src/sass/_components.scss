@@ -15,6 +15,10 @@
     outline: 2px solid var(--color-text-opposite);
   }
 
+  &:active {
+    transform: scale(0.9);
+  }
+
   &__start-game {
     margin-top: 20px;
   }
