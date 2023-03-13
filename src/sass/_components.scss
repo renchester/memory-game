@@ -1,3 +1,5 @@
+@import 'mixins';
+
 .btn {
   padding: 10px 20px;
   border-radius: 9px;
@@ -23,7 +25,32 @@
     margin-top: 20px;
   }
 
-  &__play-again {
+  &__toggle-sound {
+    @extend %parent-with-centered-children;
+
+    background-color: var(--color-primary);
+    color: var(--color-text-opposite);
+    border-radius: 50px;
+    margin: 20px;
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
+      rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+
+    transition: 100ms ease-in;
+
+    &:hover,
+    &:focus {
+      transform: scale(1.1);
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
   }
 }
 

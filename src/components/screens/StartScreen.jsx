@@ -1,9 +1,12 @@
 import { motion, useIsPresent } from 'framer-motion';
+import ReactHowler from 'react-howler';
 
 import bgImage from '../../assets/img/loading-screen-2.png';
+import loadingMusic from '../../assets/sounds/loading-music.mp3';
 
 function StartScreen(props) {
-  const { startGame } = props;
+  const { startGame, soundOn } = props;
+
   const isPresent = useIsPresent();
 
   return (
@@ -14,6 +17,9 @@ function StartScreen(props) {
           backgroundImage: `url(${bgImage})`,
         }}
       >
+        {soundOn && (
+          <ReactHowler src={loadingMusic} playing volume={0.2} loop />
+        )}
         <motion.div
           whileHover={{ scale: 1.02 }}
           className="screen-start__modal"

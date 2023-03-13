@@ -1,9 +1,14 @@
 import { useEffect } from 'react';
 import Tilt from 'react-parallax-tilt';
+import useSound from 'use-sound';
+
+import cardFlipSound from '../assets/sounds/card-flip.wav';
 
 function Card(props) {
   const { char, handleClick, isCardFlipped, setCardFlip } = props;
   const { id, img, name } = char;
+
+  const [playFlipSound] = useSound(cardFlipSound, { volume: 0.18 });
 
   const CARD_TIMEOUT = 1000;
   const ANIMATION_DURATION = CARD_TIMEOUT / 2;
@@ -26,6 +31,7 @@ function Card(props) {
           type="button"
           className="card-side front"
           onClick={(e) => {
+            playFlipSound();
             setCardFlip(() => false);
             setTimeout(() => {
               handleClick(e, id);

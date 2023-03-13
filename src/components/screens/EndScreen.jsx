@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
+import ReactHowler from 'react-howler';
 
 import bgImageWin from '../../assets/img/eastern-air-temple-2.png';
 import bgImageLose from '../../assets/img/lake-laogai-loading.jpg';
@@ -6,8 +7,11 @@ import bgImageLose from '../../assets/img/lake-laogai-loading.jpg';
 import winningGif from '../../assets/img/gifs/aang-winning-gif.webp';
 import losingGif from '../../assets/img/gifs/iroh-losing-gif.gif';
 
+import winningMusic from '../../assets/sounds/win-music.mp3';
+import losingMusic from '../../assets/sounds/loss-music.mp3';
+
 function EndScreen(props) {
-  const { isWin, restartGame } = props;
+  const { isWin, restartGame, soundOn } = props;
 
   return (
     <AnimatePresence>
@@ -19,6 +23,14 @@ function EndScreen(props) {
           backgroundImage: isWin ? `url(${bgImageWin})` : `url(${bgImageLose})`,
         }}
       >
+        {soundOn && (
+          <ReactHowler
+            src={isWin ? winningMusic : losingMusic}
+            playing
+            volume={isWin ? 0.2 : 0.25}
+            loop
+          />
+        )}
         <div className="screen-end__modal">
           <span className="screen-end__modal-message">
             {isWin

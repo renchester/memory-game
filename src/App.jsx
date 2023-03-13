@@ -30,6 +30,7 @@ function App() {
     JSON.parse(localStorage.getItem('highScoreMemory')) || 0,
   );
   const [isLogoDark, setLogoDark] = useState(true);
+  const [allowSounds, setAllowSounds] = useState(true);
 
   useEffect(() => {
     localStorage.setItem('highScoreMemory', JSON.stringify(highScore));
@@ -78,6 +79,10 @@ function App() {
     }));
   };
 
+  const toggleSound = () => {
+    setAllowSounds((prevState) => !prevState);
+  };
+
   // Checks win condition
   useEffect(() => {
     if (gameState.characters.every((char) => char.isClicked)) {
@@ -90,7 +95,9 @@ function App() {
     <>
       <Logo isDark={isLogoDark} handleClick={resetToHomeScreen} />
 
-      {!gameState.isGameStart && <StartScreen startGame={startGame} />}
+      {!gameState.isGameStart && (
+        <StartScreen startGame={startGame} soundOn={allowSounds} />
+      )}
 
       {gameState.isGameStart && !gameState.isGameOver && (
         <GameScreen
@@ -98,12 +105,23 @@ function App() {
           currentScore={currentScore}
           highScore={highScore}
           handleClick={clickCard}
+          soundOn={allowSounds}
         />
       )}
 
       {gameState.isGameOver && (
-        <EndScreen isWin={isWin} restartGame={startGame} />
+        <EndScreen
+          isWin={isWin}
+          restartGame={startGame}
+          soundOn={allowSounds}
+        />
       )}
+
+      <button type="button" className="btn__toggle-sound" onClick={toggleSound}>
+        <div className="material-symbols-outlined">
+          {allowSounds ? 'volume_up' : 'volume_off'}
+        </div>
+      </button>
 
       <Footer />
     </>

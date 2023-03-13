@@ -1,14 +1,16 @@
 import { useState } from 'react';
 
 import { motion } from 'framer-motion';
+import ReactHowler from 'react-howler';
 
 import Scoreboard from '../Scoreboard';
 import Card from '../Card';
 
 import bgImage from '../../assets/img/lake-laogai-vault.webp';
+import gameMusic from '../../assets/sounds/game-music.mp3';
 
 function GameScreen(props) {
-  const { gameState, highScore, currentScore, handleClick } = props;
+  const { gameState, highScore, currentScore, handleClick, soundOn } = props;
 
   const [isCardFlipped, setCardFlip] = useState(false);
 
@@ -22,6 +24,8 @@ function GameScreen(props) {
         backgroundImage: `url(${bgImage})`,
       }}
     >
+      {soundOn && <ReactHowler src={gameMusic} playing volume={0.25} loop />}
+
       <Scoreboard currentScore={currentScore} highScore={highScore} />
       <motion.div
         className="screen-game__cards-container"
