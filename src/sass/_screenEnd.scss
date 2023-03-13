@@ -32,6 +32,24 @@
 
   &__modal-message {
     text-align: center;
+
+    @include respond-to(xs) {
+      font-size: var(--text-xs);
+    }
+  }
+
+  &__gif {
+    @extend %parent-with-centered-children;
+  }
+
+  &__gif--losing {
+    @include respond-to(xs) {
+      transform: scale(0.85);
+    }
+
+    @include respond-to(sm) {
+      width: 90%;
+    }
   }
 
   &__gif--winning {

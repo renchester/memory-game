@@ -10,5 +10,9 @@
 
     padding: 10px;
     font-family: var(--font-herculanum);
+
+    @include respond-to(lg, 'min') {
+      font-size: var(--text-lg);
+    }
   }
 }

@@ -11,6 +11,20 @@
 
   cursor: pointer;
 
+  @include respond-to(sm) {
+    height: 160px;
+    width: max(90px, 10vw);
+  }
+
+  @include respond-to(xs) {
+    height: 145px;
+    transform: scale(0.85);
+  }
+
+  @include respond-to(xl, 'min') {
+    height: 220px;
+  }
+
   %card-background {
     @extend %cover-background;
     transition: 500ms ease-out;
@@ -68,5 +82,9 @@
     font-family: var(--font-herculanum);
     font-size: var(--text-md);
     font-weight: 700;
+
+    @include respond-to(sm) {
+      font-size: var(--text-sm);
+    }
   }
 }

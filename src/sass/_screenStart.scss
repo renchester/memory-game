@@ -1,5 +1,5 @@
 @use 'base';
-@use 'mixins';
+@import 'mixins';
 
 .screen {
   --modal-width: clamp(250px, 60vw, 600px);
@@ -35,10 +35,15 @@
 
     transition: 100ms linear;
 
-    // &:focus-within,
-    // &:hover {
-    //   transform: scale(1.03);
-    // }
+    @include respond-to(sm) {
+      width: 90%;
+      line-height: 1.2rem;
+    }
+
+    @include respond-to(xs) {
+      font-size: var(--text-sm);
+      padding: 20px 15px;
+    }
   }
 
   .start-message {

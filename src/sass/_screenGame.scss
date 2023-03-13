@@ -19,6 +19,24 @@
     grid-template-rows: repeat(3, 1fr);
     gap: 35px;
     width: fit-content;
+
+    @include respond-to(sm) {
+      gap: 10px;
+      max-width: 100vw;
+    }
+
+    @include respond-to(xs) {
+      gap: 0;
+    }
+
+    @include respond-to(xl, 'min') {
+      gap: 50px;
+    }
+
+    @include respond-to(xxl, 'min') {
+      gap: 30px;
+      display: flex;
+    }
   }
 
   &__current-score {
@@ -27,5 +45,17 @@
 
     font-family: var(--font-herculanum);
     font-size: var(--text-lg);
+
+    @include respond-to(xs) {
+      top: 100%;
+    }
+
+    @include respond-to(xl, 'min') {
+      top: calc(100% + 30px);
+    }
+
+    @include respond-to(xxl, 'min') {
+      top: calc(100% + 60px);
+    }
   }
 }

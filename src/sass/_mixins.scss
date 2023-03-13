@@ -19,16 +19,19 @@
 /* MEDIA QUERY MIXIN*/
 
 $breakpoints: (
-  sm: 600px,
+  xs: 390px,
+  sm: 675px,
   md: 900px,
   lg: 1200px,
+  xl: 1600px,
+  xxl: 2350px,
 );
 
-@mixin respond-to($key) {
+@mixin respond-to($key, $minmax: 'max') {
   $size: map-get($breakpoints, $key);
 
   @if ($size) {
-    @media only screen and (min-width: $size) {
+    @media only screen and (#{$minmax}-width: $size) {
       @content;
     }
   } @else {

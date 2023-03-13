@@ -10,7 +10,6 @@
   margin-bottom: 10px;
   padding: 20px auto;
   gap: 10px;
-  // background-color: var(--color-background);
   font-family: var(--font-herculanum);
   color: var(--color-text-opposite);
   z-index: 1;
@@ -28,9 +27,12 @@
     font-size: var(--text-sm);
   }
 
-  // @media screen and (max-height: 900px) {
-  //   & {
-  //     position: relative;
-  //   }
-  // }
+  @media screen and (max-height: 900px) {
+    & {
+      position: relative;
+      color: var(--color-text-opposite);
+      background-color: var(--color-background-opposite);
+      margin-bottom: 0;
+    }
+  }
 }

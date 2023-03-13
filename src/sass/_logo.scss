@@ -1,5 +1,5 @@
 @use 'base';
-@use 'mixins';
+@import 'mixins';
 
 .logo {
   @extend %parent-with-centered-children;
@@ -17,13 +17,33 @@
   cursor: pointer;
 
   &__image {
-    width: 200px;
+    width: 160px;
+
+    @include respond-to(xs) {
+      width: 120px;
+    }
+
+    @include respond-to(sm) {
+      clamp: 140px;
+    }
+
+    @include respond-to(lg, 'min') {
+      width: 220px;
+    }
   }
 
   &__text {
     font-family: var(--font-herculanum);
     font-size: var(--text-md);
     font-weight: 600;
+
+    @include respond-to(xs) {
+      font-size: var(--text-sm);
+    }
+
+    @include respond-to(lg, 'min') {
+      font-size: var(--text-lg);
+    }
   }
 
   &:focus,
