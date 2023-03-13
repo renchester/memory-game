@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import Tilt from 'react-parallax-tilt';
 
 function Card(props) {
   const { char, handleClick, isCardFlipped, setCardFlip } = props;
@@ -14,24 +15,31 @@ function Card(props) {
   }, [isCardFlipped]);
 
   return (
-    <div className={isCardFlipped ? 'card card--flipped' : 'card'}>
-      <button
-        type="button"
-        className="card-side front"
-        onClick={(e) => {
-          setCardFlip(() => false);
-          setTimeout(() => {
-            handleClick(e, id);
-          }, ANIMATION_DURATION);
-        }}
-      >
-        <div className="card__image-container">
-          <img src={img} alt={name} className="card__image" />
-        </div>
-        <span className="card__image-title">{name}</span>
-      </button>
-      <div className="card-side back" />
-    </div>
+    <Tilt
+      tiltMaxAngleX={18}
+      tiltMaxAngleY={18}
+      glareEnable
+      glareMaxOpacity={0.2}
+    >
+      <div className={isCardFlipped ? 'card card--flipped' : 'card'}>
+        <button
+          type="button"
+          className="card-side front"
+          onClick={(e) => {
+            setCardFlip(() => false);
+            setTimeout(() => {
+              handleClick(e, id);
+            }, ANIMATION_DURATION);
+          }}
+        >
+          <div className="card__image-container">
+            <img src={img} alt={name} className="card__image" />
+          </div>
+          <span className="card__image-title">{name}</span>
+        </button>
+        <div className="card-side back" />
+      </div>
+    </Tilt>
   );
 }
 
