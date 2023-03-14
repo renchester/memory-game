@@ -10,7 +10,8 @@ import bgImage from '../../assets/img/lake-laogai-vault.webp';
 import gameMusic from '../../assets/sounds/game-music.mp3';
 
 function GameScreen(props) {
-  const { gameState, highScore, currentScore, handleClick, soundOn } = props;
+  const { gameState, dispatch } = props;
+  const { allowSounds, currentScore, highScore } = gameState;
 
   const [isCardFlipped, setCardFlip] = useState(false);
 
@@ -24,7 +25,9 @@ function GameScreen(props) {
         backgroundImage: `url(${bgImage})`,
       }}
     >
-      {soundOn && <ReactHowler src={gameMusic} playing volume={0.25} loop />}
+      {allowSounds && (
+        <ReactHowler src={gameMusic} playing volume={0.25} loop />
+      )}
 
       <Scoreboard currentScore={currentScore} highScore={highScore} />
       <motion.div
@@ -36,7 +39,7 @@ function GameScreen(props) {
           <Card
             key={char.id}
             char={char}
-            handleClick={handleClick}
+            dispatch={dispatch}
             isCardFlipped={isCardFlipped}
             setCardFlip={setCardFlip}
           />

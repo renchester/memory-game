@@ -10,8 +10,15 @@ import losingGif from '../../assets/img/gifs/iroh-losing-gif.gif';
 import winningMusic from '../../assets/sounds/win-music.mp3';
 import losingMusic from '../../assets/sounds/loss-music.mp3';
 
+import { ACTIONS } from '../../gameReducer';
+
 function EndScreen(props) {
-  const { isWin, restartGame, soundOn } = props;
+  const { gameState, dispatch } = props;
+  const { allowSounds, isWin } = gameState;
+
+  const restartGame = () => {
+    dispatch({ type: ACTIONS.START_GAME });
+  };
 
   return (
     <AnimatePresence>
@@ -23,7 +30,7 @@ function EndScreen(props) {
           backgroundImage: isWin ? `url(${bgImageWin})` : `url(${bgImageLose})`,
         }}
       >
-        {soundOn && (
+        {allowSounds && (
           <ReactHowler
             src={isWin ? winningMusic : losingMusic}
             playing

@@ -1,8 +1,11 @@
 import logoWhite from '../assets/img/logo-white.svg';
 import logoBlack from '../assets/img/logo-black.svg';
+import { ACTIONS } from '../gameReducer';
 
 export default function Logo(props) {
-  const { isDark, handleClick } = props;
+  const { isDark, dispatch } = props;
+
+  const handleClick = () => dispatch({ type: ACTIONS.RESET_TO_HOME });
 
   const textStyle = {
     color: isDark ? 'var(--color-text)' : 'var(--color-text-opposite)',

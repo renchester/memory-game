@@ -4,9 +4,12 @@ import ReactHowler from 'react-howler';
 import bgImage from '../../assets/img/loading-screen-2.png';
 import loadingMusic from '../../assets/sounds/loading-music.mp3';
 
-function StartScreen(props) {
-  const { startGame, soundOn } = props;
+import { ACTIONS } from '../../gameReducer';
 
+function StartScreen(props) {
+  const { dispatch, soundOn } = props;
+
+  const startGame = () => dispatch({ type: ACTIONS.START_GAME });
   const isPresent = useIsPresent();
 
   return (
